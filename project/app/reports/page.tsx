@@ -6,7 +6,7 @@ import { FileText, Filter } from 'lucide-react'
 
 export default function ReportsPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-72" >
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Reports</h1>
         <div className="flex gap-4">

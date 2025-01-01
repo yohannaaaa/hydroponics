@@ -50,7 +50,7 @@ export default function StatusPage() {
   return (
     <div className="space-y-6 md:space-y-8 px-4 md:px-0">
       <div className="relative h-[180px] md:h-[240px] rounded-xl overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-800/50" />
         <div className="absolute bottom-4 md:bottom-8 left-4 md:left-8">
           <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">System Status</h1>
