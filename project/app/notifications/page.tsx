@@ -27,7 +27,14 @@ export default function NotificationsPage() {
   useEffect(() => {
     if (sensorData.loading || sensorData.error) return
 
-    const newAlerts: { id: number; title: string; message: string; timestamp: string; level: string; type: string }[] = []
+    const newAlerts: Array<{
+      id: number
+      title: string
+      message: string
+      timestamp: string
+      level: 'warning' | 'error' | 'success'
+      type: 'temperature' | 'humidity' | 'moisture'
+    }> = []
     const now = new Date().toLocaleTimeString()
 
     // Check temperature
