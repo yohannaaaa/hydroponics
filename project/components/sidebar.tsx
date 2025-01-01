@@ -13,11 +13,11 @@ export function Sidebar() {
   
   const navigation = [
     { name: 'Getting Started', href: '/', icon: Home },
-    { name: 'Analytics', href: '/analytics', icon: LineChart },
-    { name: 'Reports', href: '/reports', icon: FileText },
     { name: 'Status', href: '/status', icon: Settings },
     { name: 'Notifications', href: '/notifications', icon: Bell },
     { name: 'Growing Guide', href: '/guide', icon: Book },
+    { name: 'Analytics', href: '/analytics', icon: LineChart },
+    { name: 'Reports', href: '/reports', icon: FileText },
     { name: 'AI Assistant', href: '/ai', icon: MessageSquare }
   ]
 
