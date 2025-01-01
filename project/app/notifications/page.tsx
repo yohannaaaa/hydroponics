@@ -114,7 +114,7 @@ export default function NotificationsPage() {
 
   if (alerts.length === 0) {
     return (
-      <div className="space-y-6 md:space-y-8">
+      <div className="space-y-6 md:space-y-8 pb-72">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Notifications</h1>
           <Button variant="outline" onClick={handleRefresh}>
