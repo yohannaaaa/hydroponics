@@ -58,7 +58,7 @@ export default function StatusPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-48">
         {/* Temperature Card */}
         <Card className="p-4 md:p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-t-green-500">
           <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">

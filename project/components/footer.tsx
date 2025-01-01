@@ -33,7 +33,7 @@ export function Footer() {
               </li>
               <li className="flex items-center text-muted-foreground">
                 <Phone className="h-4 w-4 mr-2" />
-                (555) 123-4567
+                (+251) 9123-4567
               </li>
               <li className="flex items-center text-muted-foreground">
                 <MapPin className="h-4 w-4 mr-2" />

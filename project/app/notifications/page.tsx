@@ -1,90 +1,143 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { LucideProps } from "lucide-react";
-import { ThermometerIcon, Droplets } from "lucide-react"; // Adjust imports as per your setup
+"use client"
 
-// Define the Notification interface
-interface Notification {
-  id: string;
-  type: "warning" | "error" | "success" | "info";
-  title: string;
-  message: string;
-  timestamp: string;
-  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
-  status: "urgent" | "active" | "resolved";
-}
+import { useEffect, useState } from 'react'
+import { Card } from '@/components/ui/card'
+import { Bell, RotateCw } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { AlertCard } from '@/components/notifications/alert-card'
+import { useSensorData } from '@/hooks/use-sensor-data'
+import { THRESHOLDS } from '@/lib/constants'
 
-// Main Component
-const NotificationComponent = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+export default function NotificationsPage() {
+  const sensorData = useSensorData()
+  const [alerts, setAlerts] = useState<Array<{
+    id: number
+    title: string
+    message: string
+    timestamp: string
+    level: 'warning' | 'error' | 'success'
+    type: 'temperature' | 'humidity' | 'moisture'
+  }>>([])
 
-  // Mock sensor data for demonstration
-  const [sensorData, setSensorData] = useState({
-    temperature: 25, // degrees Celsius
-    humidity: 75,    // percentage
-    soilMoisture: 25, // percentage
-  });
+  // Function to refresh the page
+  const handleRefresh = () => {
+    window.location.reload()
+  }
 
   useEffect(() => {
-    const newNotifications: Notification[] = [];
+    if (sensorData.loading || sensorData.error) return
 
-    if (sensorData.temperature > 24) {
-      newNotifications.push({
-        id: "1",
-        type: "warning",
-        title: "High Temperature Alert",
-        message: `Temperature reached ${sensorData.temperature}°C, above optimal range of 18-24°C`,
-        timestamp: "1 minute ago",
-        icon: ThermometerIcon,
-        status: "urgent",
-      });
+    const newAlerts: { id: number; title: string; message: string; timestamp: string; level: string; type: string }[] = []
+    const now = new Date().toLocaleTimeString()
+
+    // Check temperature
+    if (sensorData.temperature > THRESHOLDS.temperature.max) {
+      newAlerts.push({
+        id: Date.now(),
+        title: 'High Temperature Alert',
+        message: `Temperature (${sensorData.temperature}${THRESHOLDS.temperature.unit}) is above optimal range of ${THRESHOLDS.temperature.min}-${THRESHOLDS.temperature.max}${THRESHOLDS.temperature.unit}`,
+        timestamp: now,
+        level: 'warning',
+        type: 'temperature'
+      })
     }
 
-    if (sensorData.humidity > 70) {
-      newNotifications.push({
-        id: "2",
-        type: "warning",
-        title: "High Humidity Alert",
-        message: `Humidity levels have risen to ${sensorData.humidity}%, above optimal range`,
-        timestamp: "1 minute ago",
-        icon: Droplets,
-        status: "active",
-      });
+    // Check humidity
+    if (sensorData.humidity < THRESHOLDS.humidity.min) {
+      newAlerts.push({
+        id: Date.now() + 1,
+        title: 'Low Humidity Alert',
+        message: `Humidity (${sensorData.humidity}${THRESHOLDS.humidity.unit}) is below optimal range of ${THRESHOLDS.humidity.min}-${THRESHOLDS.humidity.max}${THRESHOLDS.humidity.unit}`,
+        timestamp: now,
+        level: 'warning',
+        type: 'humidity'
+      })
     }
 
-    if (sensorData.soilMoisture < 30) {
-      newNotifications.push({
-        id: "3",
-        type: "warning",
-        title: "Low Soil Moisture",
-        message: `Soil moisture is at ${sensorData.soilMoisture}%, below optimal range`,
-        timestamp: "1 minute ago",
-        icon: Droplets,
-        status: "urgent",
-      });
+    // Check moisture
+    if (sensorData.moisture < THRESHOLDS.moisture.min) {
+      newAlerts.push({
+        id: Date.now() + 2,
+        title: 'Low Soil Moisture',
+        message: `Soil moisture (${sensorData.moisture}${THRESHOLDS.moisture.unit}) is below optimal range of ${THRESHOLDS.moisture.min}-${THRESHOLDS.moisture.max}${THRESHOLDS.moisture.unit}`,
+        timestamp: now,
+        level: 'error',
+        type: 'moisture'
+      })
     }
 
-    setNotifications(newNotifications);
-  }, [sensorData]);
+    if (newAlerts.length > 0) {
+      setAlerts(prev => [...newAlerts, ...prev].slice(0, 10)) // Keep last 10 alerts
+    }
+  }, [sensorData])
+
+  if (sensorData.loading) {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Notifications</h1>
+          <Button variant="outline" onClick={handleRefresh}>
+            <RotateCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
+        <Card className="p-6">
+          <p className="text-center text-muted-foreground">Loading sensor data...</p>
+        </Card>
+      </div>
+    )
+  }
+
+  if (sensorData.error) {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Notifications</h1>
+          <Button variant="outline" onClick={handleRefresh}>
+            <RotateCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
+        <Card className="p-6 border-red-200 bg-red-50">
+          <p className="text-center text-red-600">{sensorData.error}</p>
+        </Card>
+      </div>
+    )
+  }
+
+  if (alerts.length === 0) {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Notifications</h1>
+          <Button variant="outline" onClick={handleRefresh}>
+            <RotateCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
+        <Card className="p-8 text-center">
+          <Bell className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+          <h3 className="text-lg font-semibold mb-2">No Alerts</h3>
+          <p className="text-muted-foreground">All systems are operating within normal parameters</p>
+        </Card>
+      </div>
+    )
+  }
 
   return (
-    <div>
-      <h2>Notifications</h2>
-      <ul>
-        {notifications.map((notification) => (
-          <li key={notification.id} className={`notification-${notification.type}`}>
-            <notification.icon className="notification-icon" />
-            <div>
-              <h3>{notification.title}</h3>
-              <p>{notification.message}</p>
-              <small>{notification.timestamp}</small>
-            </div>
-          </li>
+    <div className="space-y-6 md:space-y-8">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Notifications</h1>
+        <Button variant="outline" onClick={handleRefresh}>
+          <RotateCw className="h-4 w-4 mr-2" />
+          Refresh
+        </Button>
+      </div>
+      <div className="grid gap-4">
+        {alerts.map(alert => (
+          <AlertCard key={alert.id} {...alert} />
         ))}
-      </ul>
+      </div>
     </div>
-  );
-};
-
-export default NotificationComponent;
+  )
+}

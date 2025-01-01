@@ -21,10 +21,7 @@ export function Header() {
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input placeholder="Search..." className="pl-10" />
         </div>
-        <nav className="hidden md:flex items-center space-x-4">
-          <Button variant="ghost" className="text-sm">Analytics</Button>
-          <Button variant="ghost" className="text-sm">Reports</Button>
-        </nav>
+        
       </div>
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon">
