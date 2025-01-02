@@ -21,7 +21,7 @@ export default function Home() {
                   Grow nutritious barley efficiently and sustainably.
                 </p>
                 <Button className="w-full md:w-auto bg-green-600 hover:bg-green-700">
-                  Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                  <a href="https://www.slideshare.net/slideshow/hydroponics-ppt-67212865/67212865">Learn More</a> <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
               <div className="relative h-[200px] md:h-[400px] rounded-lg overflow-hidden">
@@ -76,11 +76,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-green-700 text-white py-4 text-center">
-        © {new Date().getFullYear()} Modern Hydroponics. All rights reserved.
-      </footer>
     </div>
   );
 }

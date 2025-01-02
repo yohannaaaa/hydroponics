@@ -24,9 +24,7 @@ export function Header() {
         
       </div>
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon">
-          <HelpCircle className="h-5 w-5" />
-        </Button>
+        
         <Button
           variant="ghost"
           size="icon"
@@ -34,9 +32,7 @@ export function Header() {
         >
           {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </Button>
-        <Button variant="ghost" size="icon">
-          <Bell className="h-5 w-5" />
-        </Button>
+       
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">

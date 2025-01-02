@@ -151,10 +151,7 @@ export function GuideContent() {
             <div>
               <h3 className="text-xl font-semibold mb-2">Common Issues</h3>
               <div className="space-y-4">
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">Yellow Leaves</h4>
-                  <p className="text-green-700">Usually indicates nutrient deficiency or pH imbalance. Check nutrient levels and pH.</p>
-                </div>
+                
                 <div className="bg-green-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Slow Growth</h4>
                   <p className="text-green-700">Check temperature and light levels. Ensure proper nutrient concentration.</p>
@@ -162,6 +159,10 @@ export function GuideContent() {
                 <div className="bg-green-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Mold Growth</h4>
                   <p className="text-green-700">Improve air circulation and reduce humidity. Clean affected areas with hydrogen peroxide solution.</p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">Yellow Leaves</h4>
+                  <p className="text-green-700">Usually indicates nutrient deficiency or pH imbalance. Check nutrient levels and pH.</p>
                 </div>
               </div>
             </div>

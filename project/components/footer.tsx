@@ -6,7 +6,7 @@ import Link from 'next/link'
 export function Footer() {
   return (
     <footer className="bg-background border-t">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center">
@@ -21,24 +21,6 @@ export function Footer() {
             <ul className="space-y-2">
               <li><Link href="/" className="text-muted-foreground hover:text-foreground">Home</Link></li>
               <li><Link href="/guide" className="text-muted-foreground hover:text-foreground">Growing Guide</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center text-muted-foreground">
-                <Mail className="h-4 w-4 mr-2" />
-                info@hydrogrow.com
-              </li>
-              <li className="flex items-center text-muted-foreground">
-                <Phone className="h-4 w-4 mr-2" />
-                (+251) 9123-4567
-              </li>
-              <li className="flex items-center text-muted-foreground">
-                <MapPin className="h-4 w-4 mr-2" />
-                123 Grow Street
-              </li>
             </ul>
           </div>
           
